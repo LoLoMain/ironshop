@@ -1,0 +1,16 @@
+<h2>List of Products for Sale on Ironshop</h2>
+
+<ul>
+<%  productsAndStuff.forEach((oneProduct)=>{ %>
+    <li>
+      <h3> <%= oneProduct.name %></h3>
+      <p>$ <%=oneProduct.price %> </p>
+
+      <a href="/products/details?myId=<%= oneProduct._id %>">
+      View Details</a>
+      <br>
+    </li>
+  <% }) %>
+</ul>
+<%# req.query.myId - since we put myId here in query string%>
+<%#note where squids are in href - different then above %>
