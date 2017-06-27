@@ -36,7 +36,7 @@ router.post('/products',(req,res, next)=>{
       name: req.body.productName,
       price: req.body.productPrice,
       imageUrl: req.body.productImageUrl,
-      description: req.body.productDescriptions
+      description: req.body.productDescription
     });
   // this is what ACTUALLY TALKS TO THE DATABASE TO SAVE
     addedProduct.save((err)=>{
@@ -83,12 +83,13 @@ router.post('/products',(req,res, next)=>{
 //        return;
 //   }
 
-router.get('/products/details',(req,res,next)=>{
+// DETAILS PAGE
+router.get('/products/:myId',(req,res,next)=>{
   // from products-list-view.ejs
   // <a href="/products/details?myId=<%= oneProduct._id %>">
   //  /products/details?myId=5951744067310a0e67d4934c"
     ProductModel.findById(
-      req.query.myId, //1st Argument -> the Id to find in the DB
+      req.params.myId, //1st Argument -> the Id to find in the DB
       (err, productFromDb)=>{ //2nd Argument -> callback
         if (err){
           //  If there was an error, use next() to skip to the ERROR PAGE
@@ -105,9 +106,10 @@ router.get('/products/details',(req,res,next)=>{
 // Step #1 of form submission for UPDATING a product
 // (SAME AS DETAILS PAGE BUT DIFFERENT VIEW FILE)
 // we are going to use this to pre-populate the form and only change what we want to change
-router.get('/products/edit',(req, res, next)=>{
+router.get('/products/:myId/edit',(req, res, next)=>{
+      //  /products/       /edit
   ProductModel.findById(
-    req.query.myId, //1st Argument -> the Id to find in the DB
+    req.params.myId, //1st Argument -> the Id to find in the DB
     (err, productFromDb)=>{ //2nd Argument -> callback
       if (err){
         //  If there was an error, use next() to skip to the ERROR PAGE
@@ -119,6 +121,72 @@ router.get('/products/edit',(req, res, next)=>{
     );
   });
 });
+
+// step #2 of form submission for a UPDATING product
+// a POST verb - that we added in the form
+
+// <form method="post" action="/products/update?myId=5951744067310a0e67d4934c" >
+router.post('/products/:myId/update',(req,res, next)=>{
+    ProductModel.findByIdAndUpdate(
+      req.params.myId,{                 // 1st Argument -> id of document to update
+
+      name: req.body.productName,      //2nd Argument -> object of fields to update
+      price: req.body.productPrice,
+      imageUrl: req.body.productImageUrl,
+      description: req.body.productDescription
+    },
+
+    (err, productFromDb) => {         //3rd Argument -> callback!
+      if (err){
+        //  If there was an error, use next() to skip to the ERROR PAGE
+      next(err);
+      return;
+      }
+      //if saved successfully, redirect to a URL /blahblahblah
+      // Redirect is step #3
+      // you need to include the ID of the product in the URL
+      res.redirect('/products/' +productFromDb._id);
+      // you can ONLY redirect to a URL
+      }
+    );
+  });
+
+// TWO METHODS TO DELETE - LINK OR BUTTON - BUTTON PERSONALLY PREFERRED BY ME
+// Delete a LINK (GET)
+// same code as a Post version - see below
+  router.get('/products/:myId/delete', (req,res,next)=>{
+    ProductModel.findByIdAndRemove(
+      req.params.myId,                  // 1st Argument -> id of document to delete
+
+      (err, productFromDb) => {         //3rd Argument -> callback!
+        if (err){
+          //  If there was an error, use next() to skip to the ERROR PAGE
+        next(err);
+        return;
+        }
+        // if removed successfully redirect to a URL
+        res.redirect('/products');
+      }
+    );
+  });
+
+  // Delete from a FORM BUTTON (POST)
+  // same code as a GET version - see above
+    router.post('/products/:myId/delete', (req,res,next)=>{
+      ProductModel.findByIdAndRemove(
+        req.params.myId,                  // 1st Argument -> id of document to delete
+
+        (err, productFromDb) => {         //3rd Argument -> callback!
+          if (err){
+            //  If there was an error, use next() to skip to the ERROR PAGE
+          next(err);
+          return;
+          }
+          // if removed successfully redirect to a URL
+          res.redirect('/products');
+        }
+      );
+    });
 
 
 module.exports = router;

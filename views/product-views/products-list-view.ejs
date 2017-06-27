@@ -6,11 +6,32 @@
       <h3> <%= oneProduct.name %></h3>
       <p>$ <%=oneProduct.price %> </p>
 
-      <a href="/products/details?myId=<%= oneProduct._id %>">
+      <a href="/products/<%= oneProduct._id %>">
       View Details</a>
       <br>
+
+      <a href="/products/<%= oneProduct._id %>/edit">
+      Edit Product</a>
+      <br>
+
+      <a href="/products/<%= oneProduct._id %>/delete">
+      Delete Product (GET) </a>
+      <br>
+
+      <form method="post" action="products/<%= oneProduct._id %>/delete">
+        <button> Delete Button (POST) </button>
+      </form>
+
+
     </li>
   <% }) %>
 </ul>
-<%# req.query.myId - since we put myId here in query string%>
+
 <%#note where squids are in href - different then above %>
+
+<%#req.query.myId %>
+
+<%#
+
+
+ %>

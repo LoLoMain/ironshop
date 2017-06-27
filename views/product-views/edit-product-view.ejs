@@ -1,0 +1,30 @@
+<a href="/products">Back to Products</a>
+
+<h2>Edit a Product</h2>
+
+<%# Review where the action comes from %>
+<form action="/products/<%= productDetails._id%>/update" method="post">
+
+  <label for="product-name-input">Name of Product</label>
+  <input id="product-name-input" type="text" name="productName"
+    value="<%= productDetails.name %>">
+  <br>
+
+  <label for="product-price-input">Price</label>
+  <input id="product-price-input" type="number" step="0.10" name="productPrice"
+    value="<%= productDetails.price %>">
+  <br>
+
+  <label for="product-image-input">Image URL</label>
+  <input id="product-image-input" type="text" name="productImageUrl"
+    value="<%= productDetails.imageUrl %>">
+  <br>
+
+  <label for="product-description-input">Description</label>
+  <textarea id="product-description-input" type="text" name="productDescription"><%= productDetails.description %></textarea>
+  <br>
+
+  <button type="submit" name="button"> Save Changes </button>
+
+
+</form>
