@@ -9,14 +9,19 @@
 <p>$ <%= productDetails.price %> </p>
 <p> <%= productDetails.description %> </p>
 
-<a href="/products/<%= productDetails._id %>/edit">
-Edit Product</a>
+<a href="/products/<%= productDetails._id %>/reviews/new">
+Review Product</a>
 <br>
 
-<a href="/products/<%= productDetails._id %>/delete">
-Delete Product (GET) </a>
+<a href="/products/<%= productDetails._id %>/edit">
+Edit Product</a>
 <br>
 
 <form method="post" action="products/<%= productDetails._id %>/delete">
   <button> Delete Button (POST) </button>
 </form>
+
+
+<!--<a href="/products/<%= productDetails._id %>/delete"> -->
+<!--Delete Product (GET) </a> -->
+<!-- <br> -->

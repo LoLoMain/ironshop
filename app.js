@@ -39,6 +39,9 @@ app.use('/', index);
 
 const myProductRoutes = require('./routes/product-routes.js');
 app.use('/', myProductRoutes);
+
+const myReviewRoutes = require('./routes/review-routes.js');
+app.use('/', myReviewRoutes);
 // ---------------------
 
 // catch 404 and forward to error handler
