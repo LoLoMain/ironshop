@@ -1,13 +1,22 @@
 <h2>Add a Product</h2>
 
+
+
 <%# action will connect step 1 to step 2%>
 <%# this post/products route is separate from and get/products route and they are only connected by the DB %>
 <form action="/products" method="post">
+
+  <% if (typeof nameValidationError ==='object'){ %>
+  <p class="error"> <%= nameValidationError.message %> </p>
+   <% } %>
 
   <label for="product-name-input"> Name of Product</label>
   <input id="product-name-input" type="text" name="productName">
   <br>                                <%# req.body.productName %>
 
+  <% if (typeof priceValidationError ==='object'){ %>
+  <p class="error"> <%= priceValidationError.message %> </p>
+   <% } %>
 
   <label for="product-price-input"> Price </label>
   <input id="product-price-input" type="number" step="0.01" name="productPrice">

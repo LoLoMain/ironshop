@@ -38,12 +38,23 @@ router.post('/products',(req,res, next)=>{
       imageUrl: req.body.productImageUrl,
       description: req.body.productDescription
     });
+
   // this is what ACTUALLY TALKS TO THE DATABASE TO SAVE
     addedProduct.save((err)=>{
-      if (err){
+      // If there was an error that was NOT a validation error...
+      if (err && addedProduct.errors === undefined){
         //  If there was an error, use next() to skip to the ERROR PAGE
       next(err);
       return;
+      }
+      // If there was error and THERE WERE valiation errors
+      if(err && addedProduct.errors){
+        // Create view variables with the error messages
+        res.locals.nameValidationError = addedProduct.errors.name;
+        res.locals.priceValidationError = addedProduct.errors.price;
+        // and display the form again
+        res.render('product-views/new-product-view.ejs');
+        return;
       }
       //if saved successfully, redirect to a URL /blahblahblah
       // Redirect is step #3

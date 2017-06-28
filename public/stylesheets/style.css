@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+.error{
+  border: 1px solid red;
+  border-radius: 3px;
+  color: red;
+  padding: 10px;
+}

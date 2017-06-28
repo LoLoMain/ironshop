@@ -9,9 +9,30 @@
 <p>$ <%= productDetails.price %> </p>
 <p> <%= productDetails.description %> </p>
 
-<a href="/products/<%= productDetails._id %>/reviews/new">
-Review Product</a>
-<br>
+<hr>
+<section>
+  <% if (productDetails.reviews.length === 0){ %>
+    <h3>Be the First to Review!</h3>
+  <%  } %>
+  <% { %>
+        <h3>Reviews</h3>
+        <ul>
+        <% productDetails.reviews.forEach((oneReview)=> { %>
+          <li>
+            <h5> <%= oneReview.author %> </h5>
+            <p> <%= oneReview.stars %> out of 5 </p>
+            <p> <%= oneReview.content %> </p>
+          </li>
+        <% }) %>
+      </ul>
+<% } %>
+  <a href="/products/<%= productDetails._id %>/reviews/new">
+    Review Product</a>
+    <br>
+
+</section>
+<hr>
+
 
 <a href="/products/<%= productDetails._id %>/edit">
 Edit Product</a>

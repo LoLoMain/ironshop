@@ -1,7 +1,27 @@
 <h2>Add a Review</h2>
 
-<%# <form action="/reviews/new" method="post">
+<p> Write a review for <i> <%= productDetails.name %> </i> </p>
 
-  <label for=""></label>%>
+<%#  ID must be present when form is submitted
+This is so the db can connect this specific review to the product ID %>
+<%# POST to    /products/        99999999999      /reviews%>
+<form action="/products/<%= productDetails._id %>/reviews/" method="post">
 
-<%# </form>%>
+  <label for="author-input"> Author: </label>
+  <input id="author-input" type="text" name="reviewAuthor">
+  <br>
+  <br>
+
+  <label for="review-stars-input">Star Rating (1-5)</label>
+  <input id="review-stars-input" type="number" name="reviewStars">
+  <br>
+  <br>
+
+
+  <label for="review-content-input"> Comments:</label>
+  <textarea id="review-content-input" type="text" name="reviewContent"></textarea>
+  <br>
+  <br>
+
+  <button type="submit" name="button"> Submit your Review!</button>
+</form>
